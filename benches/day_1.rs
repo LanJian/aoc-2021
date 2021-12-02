@@ -2,7 +2,7 @@ use aoc_2021::{utils, day_1};
 use criterion::{ Criterion, criterion_group, black_box };
 
 fn benchmark(c: &mut Criterion) {
-    let mut group = c.benchmark_group("day1: sonar sweep");
+    let mut group = c.benchmark_group("day 1: sonar sweep");
 
     let lines = utils::load_lines("inputs/day_1").expect("could not load input");
     let depths = lines
