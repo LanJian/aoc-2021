@@ -1,6 +1,4 @@
-use aoc_2021::utils;
-
-fn part_one(lines: &Vec<u64>) -> u64 {
+pub fn part_one(lines: &Vec<u64>) -> u64 {
     lines
         .iter()
         .fold((0, None), |(count, prev), x| match prev {
@@ -10,7 +8,7 @@ fn part_one(lines: &Vec<u64>) -> u64 {
         .0
 }
 
-fn part_two(lines: &Vec<u64>) -> u64 {
+pub fn part_two(lines: &Vec<u64>) -> u64 {
     lines
         .iter()
         .fold((0, None, None, None), |(count, a, b, c), x| {
@@ -28,18 +26,4 @@ fn part_two(lines: &Vec<u64>) -> u64 {
             }
         })
         .0
-}
-
-fn main() {
-    let lines = utils::load_lines("inputs/day1").expect("could not load input");
-    let depths = lines
-        .iter()
-        .map(|x| {
-            x.parse::<u64>()
-                .expect("could not parse invalid integer string")
-        })
-        .collect::<Vec<u64>>();
-
-    println!("part one: {}", part_one(&depths));
-    println!("part two: {}", part_two(&depths));
 }
