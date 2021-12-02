@@ -1,9 +1,9 @@
 use criterion::criterion_main;
 
-mod day_1;
-mod day_2;
+mod day_01;
+mod day_02;
 
 criterion_main! {
-    day_1::benches,
-    day_2::benches,
+    day_01::benches,
+    day_02::benches,
 }
