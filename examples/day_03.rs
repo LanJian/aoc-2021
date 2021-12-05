@@ -1,7 +1,7 @@
 use aoc_2021::{day_03, utils};
 
 fn main() {
-    let lines = utils::load_lines("inputs/day_03").expect("could not load input");
+    let lines = utils::load_input("inputs/day_03").expect("could not load input");
     let diagnostics: Vec<u64> = lines
         .iter()
         .map(|line| {

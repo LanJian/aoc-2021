@@ -4,7 +4,7 @@ use criterion::{ Criterion, criterion_group, black_box };
 fn benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("day 01: sonar sweep");
 
-    let lines = utils::load_lines("inputs/day_01").expect("could not load input");
+    let lines = utils::load_input("inputs/day_01").expect("could not load input");
     let depths = lines
         .iter()
         .map(|x| {

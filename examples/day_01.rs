@@ -2,7 +2,7 @@ use aoc_2021::utils;
 use aoc_2021::day_01;
 
 fn main() {
-    let lines = utils::load_lines("inputs/day_01").expect("could not load input");
+    let lines = utils::load_input("inputs/day_01").expect("could not load input");
     let depths = lines
         .iter()
         .map(|x| {

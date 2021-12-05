@@ -9,7 +9,7 @@ use criterion::{black_box, criterion_group, Criterion};
 fn benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("day 04: giant squid");
 
-    let lines = utils::load_lines("inputs/day_04").expect("could not load input");
+    let lines = utils::load_input("inputs/day_04").expect("could not load input");
     let mut sections = lines.split(|line| line.is_empty());
 
     let sequence: Vec<i64> = sections.next().expect("invalid input")[0]

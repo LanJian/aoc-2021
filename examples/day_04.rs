@@ -3,7 +3,7 @@ use std::convert::TryFrom;
 use aoc_2021::{day_04::{self, BingoBoard}, utils};
 
 fn main() {
-    let lines = utils::load_lines("inputs/day_04").expect("could not load input");
+    let lines = utils::load_input("inputs/day_04").expect("could not load input");
     let mut sections = lines.split(|line| line.is_empty());
 
     let sequence: Vec<i64> = sections.next().expect("invalid input")[0]

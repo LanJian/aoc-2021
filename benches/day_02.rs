@@ -5,7 +5,7 @@ use criterion::{ Criterion, criterion_group, black_box };
 fn benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("day 02: dive");
 
-    let lines = utils::load_lines("inputs/day_02").expect("could not load input");
+    let lines = utils::load_input("inputs/day_02").expect("could not load input");
     let commands: Vec<(&str, u64)> = lines.iter().map(|line| {
         let tokens: Vec<&str> = line.split(" ").collect();
         (

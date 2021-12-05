@@ -2,7 +2,7 @@ use aoc_2021::{utils, day_02};
 
 
 fn main() {
-    let lines = utils::load_lines("inputs/day_02").expect("could not load input");
+    let lines = utils::load_input("inputs/day_02").expect("could not load input");
     let commands: Vec<(&str, u64)> = lines.iter().map(|line| {
         let tokens: Vec<&str> = line.split(" ").collect();
         (
