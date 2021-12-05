@@ -174,8 +174,6 @@ pub fn part_two(sequence: &Vec<i64>, boards: &mut Vec<BingoBoard>) -> Result<i64
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn score_test() {}
 }
