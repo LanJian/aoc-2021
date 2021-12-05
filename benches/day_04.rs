@@ -17,15 +17,21 @@ fn benchmark(c: &mut Criterion) {
         .map(|x| x.parse::<i64>().expect("could not parse integer string"))
         .collect();
 
-    let mut boards: Vec<BingoBoard> = sections
+    let boards: Vec<BingoBoard> = sections
         .map(|section| BingoBoard::try_from(section).expect("could not parse bingo board"))
         .collect();
 
     group.bench_function("part 1", |b| {
-        b.iter(|| black_box(day_04::part_one(&sequence, &mut boards).expect("no winning board")))
+        b.iter(|| {
+            let mut boards = boards.clone();
+            black_box(day_04::part_one(&sequence, &mut boards).expect("no winning board"))
+        })
     });
     group.bench_function("part 2", |b| {
-        b.iter(|| black_box(day_04::part_two(&sequence, &mut boards).expect("no winning board")))
+        b.iter(|| {
+            let mut boards = boards.clone();
+            black_box(day_04::part_two(&sequence, &mut boards).expect("no winning board"))
+        })
     });
     group.finish();
 }
