@@ -1,4 +1,4 @@
-use std::{io::{self, BufReader, BufRead}, fs::File, env::{VarError, self}};
+use std::{io::{self, BufReader, BufRead}, fs::File, env};
 
 pub fn load_input(default_path: &str) -> Result<Vec<String>, io::Error> {
     let path = env::var("AOC_INPUT").unwrap_or(default_path.to_string());
