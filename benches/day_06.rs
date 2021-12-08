@@ -4,7 +4,7 @@ use aoc_2021::{
 use criterion::{black_box, criterion_group, Criterion};
 
 fn benchmark(c: &mut Criterion) {
-    let mut group = c.benchmark_group("day 06: Lanternfish");
+    let mut group = c.benchmark_group("day 06: lanternfish");
 
     group.bench_function("part 1", |b| {
         let lines = utils::load_input("inputs/day_06").expect("could not load input");
