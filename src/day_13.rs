@@ -1,5 +1,5 @@
 use std::{
-    collections::HashSet, convert::TryFrom, fmt::Display, iter::FromIterator, num::ParseIntError,
+    collections::HashSet, convert::TryFrom, fmt::Display, iter::FromIterator,
     str::FromStr,
 };
 
