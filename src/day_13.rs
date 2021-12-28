@@ -164,16 +164,14 @@ impl Display for Manual {
         let max_x = self
             .dots
             .iter()
-            .map(|p| p.0)
-            .max()
-            .and_then(|v| Some(v + 1))
+            .max_by(|a, b| a.0.cmp(&b.0))
+            .map(|v| v.0 + 1)
             .unwrap_or(0);
         let max_y = self
             .dots
             .iter()
-            .map(|p| p.1)
-            .max()
-            .and_then(|v| Some(v + 1))
+            .max_by(|a, b| a.1.cmp(&b.1))
+            .map(|v| v.1 + 1)
             .unwrap_or(0);
 
         let mut grid = vec![vec!['.'; max_x as usize]; max_y as usize];

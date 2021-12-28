@@ -1,4 +1,4 @@
-use std::{convert::TryFrom, str::FromStr};
+use std::{convert::TryFrom, str::FromStr, collections::HashMap};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Element {
@@ -66,6 +66,8 @@ impl Rule {
     }
 }
 
+type Memoizer = HashMap<(usize, usize), [usize; 27]>;
+
 #[derive(Debug, PartialEq, Eq)]
 pub struct Polymer {
     template: Vec<Element>,
@@ -99,18 +101,18 @@ impl Polymer {
     pub fn min_max_after_steps(&self, steps: usize) -> (usize, usize) {
         let len = self.template.len();
         let mut quantities: [usize; 27] = [0; 27];
-        let mut mem: Vec<Vec<Option<[usize; 27]>>> = vec![vec![None; steps + 1]; 2727];
+        let mut mem: Memoizer = Memoizer::default();
 
         for i in 0..len {
-            let left = self.template.get(i).and_then(|e| Some(*e));
-            let right = self.template.get(i + 1).and_then(|e| Some(*e));
-            let result = self.count_between(left, right, 0, steps, &mut mem);
+            let left = self.template.get(i).copied();
+            let right = self.template.get(i + 1).copied();
+            let result = self.count_between(left, right, steps, &mut mem);
             for i in 0..result.len() {
                 quantities[i] += result[i];
             }
         }
 
-        let filtered: Vec<usize> = quantities.iter().filter(|x| **x != 0).map(|x| *x).collect();
+        let filtered: Vec<usize> = quantities.iter().copied().filter(|x| *x != 0).collect();
         let min = *filtered.iter().min().unwrap_or(&0);
         let max = *filtered.iter().max().unwrap_or(&0);
         (min, max)
@@ -124,25 +126,22 @@ impl Polymer {
         left: Option<Element>,
         right: Option<Element>,
         depth: usize,
-        max_depth: usize,
-        mem: &mut Vec<Vec<Option<[usize; 27]>>>,
+        mem: &mut Memoizer,
     ) -> [usize; 27] {
         let mut ret = [0; 27];
 
-        match (left, right, depth == max_depth) {
+        match (left, right, depth == 0) {
             (None, None, _) => (),
-            (Some(e), None, _) | (Some(e), _, true) => {
-                ret[e.id as usize] += 1;
-            }
+            (Some(e), None, _) | (Some(e), _, true) => ret[e.id as usize] += 1,
             (Some(a), Some(b), false) => {
-                let index = Rule::make_id(a, b) as usize;
-                if let Some(mem_val) = mem[index][depth] {
-                    return mem_val;
+                let id = Rule::make_id(a, b) as usize;
+                if let Some(mem_val) = mem.get(&(id, depth)) {
+                    return *mem_val;
                 }
 
-                let mid = self.rules[index].and_then(|r| Some(r.value));
-                let left_result = self.count_between(left, mid, depth + 1, max_depth, mem);
-                let right_result = self.count_between(mid, right, depth + 1, max_depth, mem);
+                let mid = self.rules[id].map(|r| r.value);
+                let left_result = self.count_between(left, mid, depth - 1, mem);
+                let right_result = self.count_between(mid, right, depth - 1, mem);
                 for i in 0..left_result.len() {
                     ret[i] += left_result[i];
                 }
@@ -150,7 +149,7 @@ impl Polymer {
                     ret[i] += right_result[i];
                 }
 
-                mem[index][depth] = Some(ret);
+                mem.insert((id, depth), ret);
             }
             _ => unreachable!(),
         }
