@@ -1,4 +1,5 @@
 pub mod utils;
+pub mod grid;
 
 pub mod day_01;
 pub mod day_02;
@@ -14,3 +15,4 @@ pub mod day_11;
 pub mod day_12;
 pub mod day_13;
 pub mod day_14;
+pub mod day_15;
